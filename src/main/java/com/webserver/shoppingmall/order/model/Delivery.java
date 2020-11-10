@@ -24,8 +24,7 @@ public class Delivery extends BaseTimeEntity {
     private String zipcode;
 
     @Builder
-    public Delivery(Long id, String status, String city, String street, String zipcode) {
-        this.id = id;
+    public Delivery(String status, String city, String street, String zipcode) {
         this.status = status;
         this.city = city;
         this.street = street;
