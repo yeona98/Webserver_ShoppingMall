@@ -17,7 +17,7 @@ public class Cart extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
     private Long id;
-
+g
     private String status;
 
     @ManyToOne
