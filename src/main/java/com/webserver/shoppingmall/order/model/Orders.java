@@ -5,15 +5,18 @@ import com.webserver.shoppingmall.shared.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class Order extends BaseTimeEntity {
+public class Orders extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +33,11 @@ public class Order extends BaseTimeEntity {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
+    @OneToMany(mappedBy = "orders")
+    private List<OrderItem> orderItemList = new ArrayList<>();
+
     @Builder
-    public Order(String status, Member member, Delivery delivery) {
+    public Orders(String status, Member member, Delivery delivery) {
         this.status = status;
         this.member = member;
         this.delivery = delivery;

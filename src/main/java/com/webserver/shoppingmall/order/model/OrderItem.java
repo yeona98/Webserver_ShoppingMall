@@ -23,17 +23,17 @@ public class OrderItem extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order order;
+    private Orders orders;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
 
     @Builder
-    public OrderItem(int orderPrice, int count, Order order, Item item) {
+    public OrderItem(int orderPrice, int count, Orders orders, Item item) {
         this.orderPrice = orderPrice;
         this.count = count;
-        this.order = order;
+        this.orders = orders;
         this.item = item;
     }
 }
