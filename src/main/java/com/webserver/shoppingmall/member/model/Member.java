@@ -1,5 +1,6 @@
 package com.webserver.shoppingmall.member.model;
 
+import com.webserver.shoppingmall.cart.Cart;
 import com.webserver.shoppingmall.order.model.Order;
 import com.webserver.shoppingmall.post.model.Post;
 import com.webserver.shoppingmall.shared.BaseTimeEntity;
@@ -40,6 +41,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
+
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
+    private Cart cart;
 
     @Builder
     public Member(String email, String name, String password, String city, String street, String zipcode) {

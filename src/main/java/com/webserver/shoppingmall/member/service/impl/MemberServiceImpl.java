@@ -19,7 +19,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public Long registerMember(MemberRegisterDto payload) {
+    public Long registerMember(final MemberRegisterDto payload) {
         final Optional<Member> member =  memberRepository.findByEmail(payload.getEmail());
 
         if (member.isPresent())
@@ -32,4 +32,5 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> getAllMembers() {
         return memberRepository.findAll();
     }
+
 }

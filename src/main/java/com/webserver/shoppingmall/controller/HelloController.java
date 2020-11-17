@@ -1,19 +1,14 @@
 package com.webserver.shoppingmall.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HelloController {
 
-    @GetMapping("hello")
-    public String hello() {
-        return "hello";
-    }
 
-    @GetMapping("hello/{name}")
-    public String greeting(@PathVariable("name") final String name) {
-        return "hello " + name;
-    }
 }
