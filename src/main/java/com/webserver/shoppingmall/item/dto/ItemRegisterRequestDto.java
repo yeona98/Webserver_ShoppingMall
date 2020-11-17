@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ItemSaveRequestDto {
+public class ItemRegisterRequestDto {
     private String name;
     private int price;
     private int stockQuantity;
     private Category category;
 
     @Builder
-    public ItemSaveRequestDto(String name, int price, int stockQuantity, Category category) {
+    public ItemRegisterRequestDto(String name, int price, int stockQuantity, Category category) {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;

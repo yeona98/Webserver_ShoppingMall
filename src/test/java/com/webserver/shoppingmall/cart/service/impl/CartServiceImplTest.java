@@ -1,7 +1,9 @@
-package com.webserver.shoppingmall.order.service.impl;
+package com.webserver.shoppingmall.cart.service.impl;
 
 import com.webserver.shoppingmall.ShoppingMallApplicationTests;
 import com.webserver.shoppingmall.cart.model.Cart;
+import com.webserver.shoppingmall.cart.model.CartItem;
+import com.webserver.shoppingmall.cart.repository.CartItemRepository;
 import com.webserver.shoppingmall.cart.repository.CartRepository;
 import com.webserver.shoppingmall.item.model.Category;
 import com.webserver.shoppingmall.item.model.Item;
@@ -9,12 +11,7 @@ import com.webserver.shoppingmall.item.repository.ItemRepository;
 import com.webserver.shoppingmall.member.model.Address;
 import com.webserver.shoppingmall.member.model.Member;
 import com.webserver.shoppingmall.member.repository.MemberRepository;
-import com.webserver.shoppingmall.order.model.OrderItem;
-import com.webserver.shoppingmall.order.model.Orders;
-import com.webserver.shoppingmall.order.repository.OrderItemRepository;
-import com.webserver.shoppingmall.order.repository.OrderRepository;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrdersServiceImplTest extends ShoppingMallApplicationTests {
+class CartServiceImplTest extends ShoppingMallApplicationTests  {
     @Autowired
     MemberRepository memberRepository;
     @Autowired
-    ItemRepository itemRepository;
-    @Autowired
-    OrderRepository orderRepository;
-    @Autowired
-    OrderItemRepository orderItemRepository;
-    @Autowired
     CartRepository cartRepository;
+    @Autowired
+    CartItemRepository cartItemRepository;
+    @Autowired
+    ItemRepository itemRepository;
 
-    @BeforeEach()
+    @BeforeEach
     void init() {
         String name = "name";
         String email = "email@gmail.com";
@@ -68,35 +63,38 @@ class OrdersServiceImplTest extends ShoppingMallApplicationTests {
         cartRepository.save(Cart.builder().member(member).build());
     }
 
+
     @AfterEach
     void deleteAll() {
+        cartRepository.deleteAll();
         memberRepository.deleteAll();
+        cartItemRepository.deleteAll();
         itemRepository.deleteAll();
-        orderItemRepository.deleteAll();
-        orderRepository.deleteAll();
-        System.out.println("delete");
     }
 
-    @Transactional
     @Test
-    void order_item() {
+    void add_item_cart() {
         //given
         Long requestMemberId = 1L;
         Long requestItemId = 1L;
 
         Member member = memberRepository.findById(requestMemberId).get();
         Item item = itemRepository.findById(requestItemId).get();
-        Orders orders = orderRepository.save(Orders.builder().member(member).status("배송작업").build());
+        Cart cart = member.getCart();
 
-        OrderItem orderItem = orderItemRepository.save(OrderItem.builder()
-                .orders(orders)
+        //when
+        CartItem cartItem = cartItemRepository.save(CartItem.builder()
                 .item(item)
-                .count(10)
-                .orderPrice(10000)
+                .cart(cart)
+                .count(5)
+                .orderPrice(50000)
                 .build());
 
-        assertNotNull(orderItem);
-
+        //then
+        assertNotNull(cartItem);
+        assertEquals(cartItem.getCart(), cart);
+        assertEquals(cartItem.getItem(), item);
+        assertEquals(cart.getMember(), member);
+        assertEquals(5, cartItem.getCount());
     }
-
 }

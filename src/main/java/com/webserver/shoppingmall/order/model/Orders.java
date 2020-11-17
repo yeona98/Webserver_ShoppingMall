@@ -23,18 +23,15 @@ public class Orders extends BaseTimeEntity {
     @Column(name = "order_id")
     private Long id;
 
+    @Column(insertable = false, updatable = false)
     private String status;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToOne
-    @JoinColumn(name = "delivery_id")
+    @Embedded
     private Delivery delivery;
-
-    @OneToMany(mappedBy = "orders")
-    private List<OrderItem> orderItemList = new ArrayList<>();
 
     @Builder
     public Orders(String status, Member member, Delivery delivery) {

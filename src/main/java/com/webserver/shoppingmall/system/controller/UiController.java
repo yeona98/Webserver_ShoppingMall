@@ -8,4 +8,6 @@ public class UiController {
     public String index() {
         return "index";
     }
+
+    public String login() { return "login"; }
 }

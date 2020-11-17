@@ -41,7 +41,7 @@ public class MemberController {
 
         OrderItem orderItem = OrderItem.builder().item(item).orders(orders).build(); // order, item 지정된 orderItem 생성
 
-        orders.getOrderItemList().add(orderItem); // order에 orderItem 추가
+        //orders.getOrderItemList().add(orderItem); // order에 orderItem 추가
 
         orderRepository.save(orders);
         orderItemRepository.save(orderItem);

@@ -1,24 +1,32 @@
 package com.webserver.shoppingmall.member.service.impl;
 
 import com.webserver.shoppingmall.ShoppingMallApplicationTests;
+import com.webserver.shoppingmall.cart.model.Cart;
+import com.webserver.shoppingmall.cart.repository.CartRepository;
 import com.webserver.shoppingmall.member.model.Address;
 import com.webserver.shoppingmall.member.model.Member;
 import com.webserver.shoppingmall.member.repository.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceImplTest extends ShoppingMallApplicationTests {
     @Autowired
     MemberRepository memberRepository;
+    @Autowired
+    CartRepository cartRepository;
 
     @AfterEach
     void deleteAll() {
         memberRepository.deleteAll();
+        cartRepository.deleteAll();
+        System.out.println("delete All");
     }
 
+    @Transactional
     @Test
     void member_register_test() {
         // given
@@ -30,24 +38,27 @@ class MemberServiceImplTest extends ShoppingMallApplicationTests {
         String zipcode = "zipcode";
 
         // when
-        Member result = memberRepository.save(new Member(
+        Member member = memberRepository.save(new Member(
                 name,
                 email,
                 password,
                 new Address(city, street, zipcode))
         );
 
+        Cart cart = cartRepository.save(Cart.builder().member(member).build());
+        
         // then
-        System.out.println(result.getId());
+        assertNotNull(member);
+        assertEquals(name, member.getName());
+        assertEquals(email, member.getEmail());
+        assertEquals(password, member.getPassword());
+        assertNotNull(member.getAddress());
+        assertEquals(city, member.getAddress().getCity());
+        assertEquals(street, member.getAddress().getStreet());
+        assertEquals(zipcode, member.getAddress().getZipcode());
 
-        assertNotNull(result);
-        assertEquals(name, result.getName());
-        assertEquals(email, result.getEmail());
-        assertEquals(password, result.getPassword());
-        assertNotNull(result.getAddress());
-        assertEquals(city, result.getAddress().getCity());
-        assertEquals(street, result.getAddress().getStreet());
-        assertEquals(zipcode, result.getAddress().getZipcode());
-
+        assertNotNull(cart);
+        assertEquals(member, cart.getMember());
+        
     }
 }

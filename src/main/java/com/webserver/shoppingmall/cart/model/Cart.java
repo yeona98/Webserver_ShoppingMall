@@ -23,13 +23,9 @@ public class Cart extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "cart")
-    private List<CartItem> cartItem;
-
     @Builder
-    public Cart(Long id, Member member, List<CartItem> cartItem) {
+    public Cart(Long id, Member member) {
         this.id = id;
         this.member = member;
-        this.cartItem = cartItem;
     }
 }
