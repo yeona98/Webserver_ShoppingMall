@@ -1,6 +1,9 @@
-package com.webserver.shoppingmall.cartItem;
+package com.webserver.shoppingmall.cartItem.service.impl;
 
-import com.webserver.shoppingmall.item.model.Item;
+import com.webserver.shoppingmall.cartItem.model.CartItem;
+import com.webserver.shoppingmall.cartItem.dto.CartItemAddDto;
+import com.webserver.shoppingmall.cartItem.repository.CartItemRepository;
+import com.webserver.shoppingmall.cartItem.service.CartItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

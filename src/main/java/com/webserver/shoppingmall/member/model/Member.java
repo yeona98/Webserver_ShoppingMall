@@ -1,6 +1,6 @@
 package com.webserver.shoppingmall.member.model;
 
-import com.webserver.shoppingmall.cart.Cart;
+import com.webserver.shoppingmall.cart.model.Cart;
 import com.webserver.shoppingmall.order.model.Order;
 import com.webserver.shoppingmall.post.model.Post;
 import com.webserver.shoppingmall.shared.BaseTimeEntity;

@@ -4,10 +4,11 @@ import com.webserver.shoppingmall.member.model.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class MemberRegisterDto {
     //@NotEmpty(message = "이메일은 필수 입니다.")

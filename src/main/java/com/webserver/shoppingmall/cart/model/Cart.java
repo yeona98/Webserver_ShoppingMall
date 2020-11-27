@@ -1,8 +1,9 @@
-package com.webserver.shoppingmall.cart;
+package com.webserver.shoppingmall.cart.model;
 
-import com.webserver.shoppingmall.cartItem.CartItem;
+import com.webserver.shoppingmall.cartItem.model.CartItem;
 import com.webserver.shoppingmall.member.model.Member;
 import com.webserver.shoppingmall.shared.BaseTimeEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,8 @@ import java.util.List;
 @Entity
 public class Cart extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
     private Long id;
 
@@ -25,6 +27,11 @@ public class Cart extends BaseTimeEntity {
     private Member member;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cart")
-    private List<CartItem> cartItem = new ArrayList<>();
+    private List<CartItem> cartItems = new ArrayList<>();
 
+    @Builder
+    public Cart(Long id, Member member) {
+        this.id = id;
+        this.member = member;
+    }
 }

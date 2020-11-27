@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor // final 인 녀석에 대해 constructor 자동 생성
+@RequiredArgsConstructor
 @Service
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
@@ -21,7 +21,6 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public Long registerMember(final MemberRegisterDto payload) {
         final Optional<Member> member =  memberRepository.findByEmail(payload.getEmail());
-
         if (member.isPresent())
             throw new ResourceDuplicatedException("member","email", payload.getEmail());
 

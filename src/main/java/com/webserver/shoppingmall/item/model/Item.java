@@ -1,11 +1,10 @@
 package com.webserver.shoppingmall.item.model;
 
-import com.webserver.shoppingmall.cartItem.CartItem;
+import com.webserver.shoppingmall.cartItem.model.CartItem;
 import com.webserver.shoppingmall.item.exception.NotEnoughStockException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;

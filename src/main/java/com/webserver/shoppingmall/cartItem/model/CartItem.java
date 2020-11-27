@@ -1,16 +1,13 @@
-package com.webserver.shoppingmall.cartItem;
+package com.webserver.shoppingmall.cartItem.model;
 
-import com.webserver.shoppingmall.cart.Cart;
+import com.webserver.shoppingmall.cart.model.Cart;
 import com.webserver.shoppingmall.item.model.Item;
-import com.webserver.shoppingmall.member.model.Member;
 import com.webserver.shoppingmall.shared.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -20,8 +17,7 @@ public class CartItem extends BaseTimeEntity {
     @Column(name = "cartItem_id")
     private Long id;
 
-    private String name;
-    private int price;
+    private int orderPrice;
     private int count;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,9 +29,10 @@ public class CartItem extends BaseTimeEntity {
     private Item item;
 
     @Builder
-    public CartItem(int price, int count, String name) {
-        this.price = price;
+    public CartItem(int orderPrice, int count, Cart cart, Item item) {
+        this.orderPrice = orderPrice;
         this.count = count;
-        this.name = name;
+        this.cart = cart;
+        this.item = item;
     }
 }
