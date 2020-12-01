@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="item-container">
+
+</div>
+<script>
+    const container = document.getElementById("item-container");
+
+    async function loadData() {
+        const response = await fetch("http://localhost:8080/api/items");
+        const items = await response.json();
+
+        for (const item of await items) {
+            console.log(item)
+        }
+    }
+
+    loadData();
+</script>
+</body>
+</html>

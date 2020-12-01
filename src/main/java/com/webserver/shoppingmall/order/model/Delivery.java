@@ -10,13 +10,8 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
-@Entity
-public class Delivery extends BaseTimeEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "delivery_id")
-    private Long id;
+@Embeddable
+public class Delivery {
 
     private String status;
     private String city;

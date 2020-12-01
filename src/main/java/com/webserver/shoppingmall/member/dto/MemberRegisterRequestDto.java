@@ -36,4 +36,5 @@ public class MemberRegisterRequestDto {
                 .address(new Address(city, street, zipcode))
                 .build();
     }
+
 }

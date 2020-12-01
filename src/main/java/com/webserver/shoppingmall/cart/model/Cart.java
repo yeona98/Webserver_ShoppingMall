@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -18,16 +19,13 @@ public class Cart extends BaseTimeEntity {
     @Column(name = "cart_id")
     private Long id;
 
-    private String status;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
     @Builder
-    public Cart(Long id, String status, Member member) {
+    public Cart(Long id, Member member) {
         this.id = id;
-        this.status = status;
         this.member = member;
     }
 }

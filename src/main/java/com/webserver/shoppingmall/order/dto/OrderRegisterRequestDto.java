@@ -2,6 +2,7 @@ package com.webserver.shoppingmall.order.dto;
 
 import com.webserver.shoppingmall.member.model.Member;
 import com.webserver.shoppingmall.order.model.Delivery;
+import com.webserver.shoppingmall.order.model.Orders;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,13 @@ public class OrderRegisterRequestDto {
         this.status = status;
         this.member = member;
         this.delivery = delivery;
+    }
+
+    public Orders toEntity(){
+        return Orders.builder().
+                member(member).
+                status(status).
+                delivery(delivery).
+                build();
     }
 }
