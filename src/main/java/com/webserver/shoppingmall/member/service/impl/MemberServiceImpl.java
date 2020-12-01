@@ -1,7 +1,9 @@
 package com.webserver.shoppingmall.member.service.impl;
 
+import com.webserver.shoppingmall.cart.model.Cart;
 import com.webserver.shoppingmall.cart.repository.CartRepository;
 import com.webserver.shoppingmall.member.dto.MemberRegisterRequestDto;
+import com.webserver.shoppingmall.member.model.Member;
 import com.webserver.shoppingmall.member.repository.MemberRepository;
 import com.webserver.shoppingmall.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Long register(MemberRegisterRequestDto payload) {
-        return null;
+        Member member = memberRepository.save(payload.toMemberEntity());
+        Cart cart = cartRepository.save(Cart.builder().member(member).build());
+        return member.getId();
     }
 }

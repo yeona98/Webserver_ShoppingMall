@@ -15,7 +15,7 @@ class ItemServiceImplTest extends ShoppingMallApplicationTests {
     ItemRepository itemRepository;
 
     @AfterEach
-    void delteAll() {
+    void deleteAll() {
         itemRepository.deleteAll();
         System.out.println("아이템 다삭제됨");
     }
@@ -26,6 +26,7 @@ class ItemServiceImplTest extends ShoppingMallApplicationTests {
         String name = "aaa";
         int price = 10000;
         int stockQuantity = 5;
+        String pictureURL = "??";
 
 
         //when
@@ -34,6 +35,7 @@ class ItemServiceImplTest extends ShoppingMallApplicationTests {
                 .price(price)
                 .stockQuantity(stockQuantity)
                 .category(Category.BAGS)
+                .pictureURL(pictureURL)
                 .build();
 
         Item result = itemRepository.save(item);

@@ -1,8 +1,7 @@
 package com.webserver.shoppingmall.cart.service;
 
-import com.webserver.shoppingmall.item.model.Item;
-import com.webserver.shoppingmall.member.model.Member;
+import com.webserver.shoppingmall.cart.dto.CartRegisterRequestDto;
 
 public interface CartService {
-    Long saveItem(final Item item, final Member member);
+    Long addItem(CartRegisterRequestDto payload);
 }
