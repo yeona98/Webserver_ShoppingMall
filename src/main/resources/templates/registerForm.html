@@ -1,33 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}">
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 <div th:replace="fragments/header/header :: header"></div>
 <div class="container">
     <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="images/sub.png" alt="왜 안보임" width="100" height="100">
         <h2>회원가입</h2>
         <p class="lead">반갑습니다.</p>
     </div>
-
-    <form class="form-horizontal" th:action="@{member/register}" method="post">
+    <div class="container d-flex justify-content-center">
+    <form id="registrationForm" class="form-horizontal" th:action="@{/register}" method="post">
         <fieldset>
-            <div id="legend">
-                <legend class="">Register</legend>
-            </div>
-            <div class="control-group">
+            <div class="control-group" >
                 <!-- Username -->
                 <label class="control-label" for="name">Name</label>
                 <div class="controls">
-                    <input type="text" id="name" name="name" placeholder="" class="input-xlarge" required>
+                    <input type="text" id="name" name="name" placeholder="이름을 입력하세요" class="form-control">
                     <p class="help-block">Name can contain any letters or numbers, without spaces</p>
                 </div>
             </div>
@@ -36,8 +27,10 @@
                 <!-- E-mail -->
                 <label class="control-label" for="email">E-mail</label>
                 <div class="controls">
-                    <input type="text" id="email" name="email" placeholder="" class="input-xlarge" required>
-                    <p class="help-block">Please provide your E-mail</p>
+                    <input type="text" id="email" name="email" placeholder="이메일을 입력하세요" class="form-control">
+
+                    <button id="valButton" type="button" class="btn btn-outline-primary btn-sm">중복체크</button>
+                    <span class="text-center small mt-2" id="checkMsg" style="color: red"></span>
                 </div>
             </div>
 
@@ -45,7 +38,7 @@
                 <!-- Password-->
                 <label class="control-label" for="password">Password</label>
                 <div class="controls">
-                    <input type="password" id="password" name="password" placeholder="" class="input-xlarge" required>
+                    <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" class="form-control">
                     <p class="help-block">Password should be at least 4 characters</p>
                 </div>
             </div>
@@ -53,33 +46,39 @@
             <div class="control-group">
                 <label class="control-label" for="city">City</label>
                 <div class="controls">
-                    <input type="text" id="city" name="city" placeholder="" class="input-xlarge">
+                    <input type="text" id="city" name="city" placeholder="" class="form-control">
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="street">Street</label>
                 <div class="controls">
-                    <input type="text" id="street" name="street" placeholder="" class="input-xlarge">
+                    <input type="text" id="street" name="street" placeholder="" class="form-control">
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="zipcode">ZipCode</label>
                 <div class="controls">
-                    <input type="text" id="zipcode" name="zipcode" placeholder="" class="input-xlarge">
+                    <input type="text" id="zipcode" name="zipcode" placeholder="" class="form-control">
                 </div>
             </div>
 
             <div class="control-group">
                 <!-- Button -->
                 <div class="controls">
-                    <button class="btn btn-success">Register</button>
+                    <button id="registerBtn" type="submit" class="btn btn-success form-control" disabled>회원가입</button>
                 </div>
             </div>
         </fieldset>
     </form>
 </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script> <!--for ajax -->
+<script src="js/emailCheck.js"></script>
 </body>
-
 </html>
