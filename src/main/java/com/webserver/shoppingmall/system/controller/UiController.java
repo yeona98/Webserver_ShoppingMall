@@ -1,17 +1,25 @@
 package com.webserver.shoppingmall.system.controller;
 
+import com.webserver.shoppingmall.member.model.Member;
+import com.webserver.shoppingmall.member.model.MemberForm;
 import com.webserver.shoppingmall.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
 public class UiController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -38,4 +46,42 @@ public class UiController {
     public String test() {
         return "authpage";
     }
+
+    @GetMapping("/account")
+    public String upDateMemberForm(Model model, Principal principal) {
+
+        Member member = memberService.getMemberByEmail(principal.getName());
+        MemberForm form = new MemberForm();
+        form.setId(member.getId());
+        form.setEmail(member.getEmail());
+        form.setName(member.getName());
+        form.setCity(member.getCity());
+        form.setStreet(member.getStreet());
+        form.setZipcode(member.getZipcode());
+        model.addAttribute("form", form);
+        return "accountForm";
+    }
+
+    @PostMapping("/account")
+    public String upDateMember(@ModelAttribute("form") MemberForm form) {
+        Member member = new Member();
+        member.setId(form.getId());
+        member.setName(form.getName());
+        member.setEmail(form.getEmail());
+        member.setPassword(passwordEncoder.encode(form.getPassword()));
+        member.setCity(form.getCity());
+        member.setStreet(form.getStreet());
+        member.setZipcode(form.getZipcode());
+        memberService.updateMember(member);
+        SecurityContextHolder.clearContext();
+        return "loginForm";
+    }
+
+    @PostMapping("/account/delete")
+    public String deleteMember(Principal principal) {
+        memberService.deleteMember(principal.getName());
+        SecurityContextHolder.clearContext();
+        return "redirect:/";
+    }
+
 }

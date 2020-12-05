@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -23,11 +22,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberService);
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password(getPasswordEncoder().encode("admin"))
+                .roles("ADMIN");
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/templates/**", "/static/**", "/h2/**");
+        web.ignoring().antMatchers("/templates/**", "/static/**", "/h2/**", "/messages/**");
     }
 
     @Bean
@@ -47,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login") // 직접 구현한 로그인 페이지, 로그인 폼의 name 을 username, password 로 지정해야함
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/test") // 로그인 성공시
+                .defaultSuccessUrl("/") // 로그인 성공시
                 .and()
                 .logout()
                 .logoutUrl("/logout")

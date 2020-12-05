@@ -19,5 +19,4 @@ public class MemberDetails extends User {
         super(username, password, authorities);
         this.fullName = fullName;
     }
-
 }

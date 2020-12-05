@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>로그인</title>
 </head>
 <body>
@@ -15,8 +15,13 @@
         <div>
             <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off" required/>
         </div>
+        <br>
         <div>
             <button type="submit" class="btn btn-dark form-control">Login</button>
+        </div>
+        <div th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null">
+                <span style="color: red">로그인 실패.  </span>
+                <span style="color: red" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span>
         </div>
     </form>
 </div>

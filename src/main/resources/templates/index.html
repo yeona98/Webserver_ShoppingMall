@@ -38,7 +38,7 @@
                 <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-primary my-2">Login</a>
                 <a sec:authorize="!isAuthenticated()" th:href="@{/register}" class="btn btn-secondary my-2">Register</a>
                 <!-- MemberDetails -->
-                <span sec:authorize="isAuthenticated()">
+                <span sec:authorize="hasRole('ROLE_USER')">
                     반갑습니다 <span sec:authentication="principal.fullName"></span> 님!
                 </span>
             </p>

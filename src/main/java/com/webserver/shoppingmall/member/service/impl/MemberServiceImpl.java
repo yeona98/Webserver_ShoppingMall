@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,22 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
+    public void updateMember(Member member) {
+        memberRepository.save(member);
+    }
+
+    @Override
+    @Transactional
+    public Long deleteMember(String email) {
+        Member member = memberRepository.findMemberByEmail(email);
+        Long id = member.getId();
+        System.out.println(id);
+        memberRepository.delete(member);
+        return id;
+    }
+
+    @Override
     public List<Member> getAllMembers() {
         return memberRepository.findAll();
     }
@@ -44,6 +61,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public boolean existEmail(String email) {
         return !memberRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Member getMemberByEmail(String email) {
+        return memberRepository.findMemberByEmail(email);
     }
 
     @Override

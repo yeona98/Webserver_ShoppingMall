@@ -12,4 +12,7 @@ public interface MemberService extends UserDetailsService {
     Long registerMember(final MemberRegisterDto payload);
     List<Member> getAllMembers();
     boolean existEmail(String email);
+    Member getMemberByEmail(String email);
+    void updateMember(Member member);
+    Long deleteMember(String email);
 }
