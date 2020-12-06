@@ -49,7 +49,6 @@ public class UiController {
 
     @GetMapping("/account")
     public String upDateMemberForm(Model model, Principal principal) {
-
         Member member = memberService.getMemberByEmail(principal.getName());
         MemberForm form = new MemberForm();
         form.setId(member.getId());
@@ -64,15 +63,8 @@ public class UiController {
 
     @PostMapping("/account")
     public String upDateMember(@ModelAttribute("form") MemberForm form) {
-        Member member = new Member();
-        member.setId(form.getId());
-        member.setName(form.getName());
-        member.setEmail(form.getEmail());
-        member.setPassword(passwordEncoder.encode(form.getPassword()));
-        member.setCity(form.getCity());
-        member.setStreet(form.getStreet());
-        member.setZipcode(form.getZipcode());
-        memberService.updateMember(member);
+        form.setPassword(passwordEncoder.encode(form.getPassword()));
+        memberService.updateMember(form);
         SecurityContextHolder.clearContext();
         return "loginForm";
     }

@@ -5,16 +5,14 @@ import com.webserver.shoppingmall.member.dto.MemberRegisterDto;
 import com.webserver.shoppingmall.member.exception.ResourceDuplicatedException;
 import com.webserver.shoppingmall.member.model.Member;
 import com.webserver.shoppingmall.member.model.MemberDetails;
+import com.webserver.shoppingmall.member.model.MemberForm;
 import com.webserver.shoppingmall.member.repository.MemberRepository;
 import com.webserver.shoppingmall.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,8 +37,16 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void updateMember(Member member) {
-        memberRepository.save(member);
+    public void updateMember(MemberForm form) {
+        Member member = memberRepository.findMemberById(form.getId());
+        if(member != null) {
+            member.update(form.getEmail(),
+                    form.getName(),
+                    form.getPassword(),
+                    form.getCity(),
+                    form.getStreet(),
+                    form.getZipcode());
+        }
     }
 
     @Override
@@ -48,7 +54,6 @@ public class MemberServiceImpl implements MemberService {
     public Long deleteMember(String email) {
         Member member = memberRepository.findMemberByEmail(email);
         Long id = member.getId();
-        System.out.println(id);
         memberRepository.delete(member);
         return id;
     }

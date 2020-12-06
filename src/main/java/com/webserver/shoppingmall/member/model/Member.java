@@ -7,15 +7,12 @@ import com.webserver.shoppingmall.shared.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter @Setter
+@Getter
 @NoArgsConstructor
 @Entity
 @Table(uniqueConstraints = {
@@ -49,6 +46,17 @@ public class Member extends BaseTimeEntity {
 
     @Builder
     public Member(String email, String name, String password, String city, String street, String zipcode) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
+    }
+
+    //== 로직 ==//
+
+    public void update(String email, String name, String password, String city, String street, String zipcode) {
         this.email = email;
         this.name = name;
         this.password = password;
