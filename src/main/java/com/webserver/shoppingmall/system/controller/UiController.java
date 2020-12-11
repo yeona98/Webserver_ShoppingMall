@@ -21,12 +21,6 @@ public class UiController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("name","min");
-        return "index";
-    }
-
     @GetMapping("/register")
     public String getRegisterForm() {
         return "registerForm";
@@ -37,11 +31,6 @@ public class UiController {
         return "loginForm";
     }
 
-    @GetMapping("/posts")
-    public String getPosts() {
-        return "posts";
-    }
-
     @GetMapping("/test")
     public String test() {
         return "authpage";
@@ -50,13 +39,14 @@ public class UiController {
     @GetMapping("/account")
     public String upDateMemberForm(Model model, Principal principal) {
         Member member = memberService.getMemberByEmail(principal.getName());
-        MemberForm form = new MemberForm();
-        form.setId(member.getId());
-        form.setEmail(member.getEmail());
-        form.setName(member.getName());
-        form.setCity(member.getCity());
-        form.setStreet(member.getStreet());
-        form.setZipcode(member.getZipcode());
+        MemberForm form = new MemberForm(
+                member.getId(),
+                member.getEmail(),
+                member.getName(),
+                member.getPassword(),
+                member.getCity(),
+                member.getStreet(),
+                member.getZipcode());
         model.addAttribute("form", form);
         return "accountForm";
     }
@@ -75,5 +65,4 @@ public class UiController {
         SecurityContextHolder.clearContext();
         return "redirect:/";
     }
-
 }

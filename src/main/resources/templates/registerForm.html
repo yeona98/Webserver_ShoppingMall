@@ -12,74 +12,129 @@
         <p class="lead">반갑습니다.</p>
     </div>
     <div class="container d-flex justify-content-center">
-    <form id="registrationForm" class="form-horizontal" th:action="@{/register}" method="post">
-        <fieldset>
-            <div class="control-group" >
-                <!-- Username -->
-                <label class="control-label" for="name">Name</label>
-                <div class="controls">
-                    <input type="text" id="name" name="name" placeholder="이름을 입력하세요" class="form-control">
-                    <p class="help-block">Name can contain any letters or numbers, without spaces</p>
+        <form id="registrationForm" class="form-horizontal" th:action="@{/register}" method="post">
+            <fieldset>
+                <div class="control-group">
+                    <!-- Username -->
+                    <label class="control-label" for="name">Name</label>
+                    <div class="controls">
+                        <input type="text" id="name" name="name" placeholder="이름을 입력하세요" class="form-control">
+                        <p class="help-block">Name can contain any letters or numbers, without spaces</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <!-- E-mail -->
-                <label class="control-label" for="email">E-mail</label>
-                <div class="controls">
-                    <input type="text" id="email" name="email" placeholder="이메일을 입력하세요" class="form-control">
+                <div class="control-group">
+                    <!-- E-mail -->
+                    <label class="control-label" for="email">E-mail</label>
+                    <div class="controls">
+                        <input type="text" id="email" name="email" placeholder="이메일을 입력하세요" class="form-control">
 
-                    <button id="valButton" type="button" class="btn btn-outline-primary btn-sm">중복체크</button>
-                    <span class="text-center small mt-2" id="checkMsg" style="color: red"></span>
+                        <button id="valButton" type="button" class="btn btn-outline-primary btn-sm">중복체크</button>
+                        <span class="text-center small mt-2" id="checkMsg" style="color: red"></span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <!-- Password-->
-                <label class="control-label" for="password">Password</label>
-                <div class="controls">
-                    <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" class="form-control">
-                    <p class="help-block">Password should be at least 4 characters</p>
+                <div class="control-group">
+                    <!-- Password-->
+                    <label class="control-label" for="password">Password</label>
+                    <div class="controls">
+                        <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요"
+                               class="form-control">
+                        <p class="help-block">Password should be at least 4 characters</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <label class="control-label" for="city">City</label>
-                <div class="controls">
-                    <input type="text" id="city" name="city" placeholder="" class="form-control">
+                <div class="control-group">
+                    <label class="control-label" for="city">City</label>
+                    <div class="controls">
+                        <input type="text" id="city" name="city" placeholder="" class="form-control">
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <label class="control-label" for="street">Street</label>
-                <div class="controls">
-                    <input type="text" id="street" name="street" placeholder="" class="form-control">
+                <div class="control-group">
+                    <label class="control-label" for="street">Street</label>
+                    <div class="controls">
+                        <input type="text" id="street" name="street" placeholder="" class="form-control">
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <label class="control-label" for="zipcode">ZipCode</label>
-                <div class="controls">
-                    <input type="text" id="zipcode" name="zipcode" placeholder="" class="form-control">
+                <div class="control-group">
+                    <label class="control-label" for="zipcode">ZipCode</label>
+                    <div class="controls">
+                        <input type="text" id="zipcode" name="zipcode" placeholder="" class="form-control">
+                    </div>
                 </div>
-            </div>
 
-            <br>
+                <br>
 
-            <div class="control-group">
-                <!-- Button -->
-                <div class="controls">
-                    <button id="registerBtn" type="submit" class="btn btn-success form-control" disabled>회원가입</button>
+                <div class="control-group">
+                    <!-- Button -->
+                    <div class="controls">
+                        <button id="registerBtn" type="submit" class="btn btn-success form-control" disabled>회원가입
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </fieldset>
-    </form>
+            </fieldset>
+        </form>
+    </div>
 </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!--<script>-->
+<!--    const nameInput = document.getElementById("name");-->
+<!--    const emailInput = document.getElementById("email");-->
+<!--    const pwdInput = document.getElementById("password");-->
+<!--    const cityInput = document.getElementById("city");-->
+<!--    const streetInput = document.getElementById("street");-->
+<!--    const zipcodeInput = document.getElementById("zipcode");-->
+
+<!--    const submitBtn = document.getElementById("registerBtn");-->
+
+<!--    submitBtn.addEventListener("click", async (e) => {-->
+<!--        e.preventDefault();-->
+
+<!--        const body = {-->
+<!--            email: emailInput.value,-->
+<!--            name: nameInput.value,-->
+<!--            password: pwdInput.value,-->
+<!--            city: cityInput.value,-->
+<!--            street: streetInput.value,-->
+<!--            zipcode: zipcodeInput.value,-->
+<!--        }-->
+
+<!--        alert(JSON.stringify(body));-->
+<!--        console.log( JSON.stringify(body) );-->
+
+<!--        await fetch("http://127.0.0.1:8080/register", {-->
+<!--            method: "POST",-->
+<!--            body: JSON.stringify(body),-->
+<!--            cors: 'no-cors',-->
+<!--            headers: {-->
+<!--                "Content-Type": "application/json"-->
+<!--            }-->
+<!--        }).then(async res => {-->
+<!--            const resData = await res.json();-->
+<!--            const {status} = resData;-->
+<!--            console.log(resData);-->
+<!--            if (status === 201) {-->
+<!--                window.alert(`status :${status}`)-->
+<!--                window.location.href = "/login"-->
+<!--            }-->
+<!--        }).catch(err => {-->
+<!--            window.alert("network error")-->
+<!--            console.log(err);-->
+<!--        })-->
+<!--    });-->
+<!--</script>-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script> <!--for ajax -->
 <script src="js/emailCheck.js"></script>
 </body>

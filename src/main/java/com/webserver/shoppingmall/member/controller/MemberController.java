@@ -4,7 +4,11 @@ import com.webserver.shoppingmall.member.dto.MemberRegisterDto;
 import com.webserver.shoppingmall.member.model.Member;
 import com.webserver.shoppingmall.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+//@CrossOrigin("*")
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+
+    private Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     // Admin?
     @GetMapping(value = "members")
@@ -27,15 +35,20 @@ public class MemberController {
                 .body(memberService.getAllMembers());
     }
 
-    @PostMapping(value = "register")
-    public ResponseEntity<Long> registerMember(@RequestBody @ModelAttribute final MemberRegisterDto payload
-            , HttpServletResponse res) throws IOException {
+
+    @PostMapping(value = "register") // consumes = "application/json"
+    public ResponseEntity<?> registerMember(@RequestBody @ModelAttribute final MemberRegisterDto payload,
+                                            HttpServletResponse res) throws IOException {
+        // 서비스 넘김
         payload.setPassword(passwordEncoder.encode(payload.getPassword()));
-        res.sendRedirect("/login");
+
+        log.info("email :  {} ", payload.getEmail());
+        res.sendRedirect("/login"); // X
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(memberService.registerMember(payload));
     }
+
 
     @GetMapping("/emailCheck")
     public boolean emailCheck(String email) {

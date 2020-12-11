@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Q&A</title>
+</head>
+<body>
+<header>
+    <div th:replace="fragments/header/header :: header"></div>
+</header>
+<div class="mx-auto" style="width: 800px; height: 300px; margin-top: 30px;">
+    <table id="postTable" class="table table-hover table-sm">
+        <thead>
+        <tr class="thead-light thead-bordered">
+            <th>#</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${posts}">
+            <td id="id" th:text="${post.id}"></td>
+            <td >
+                <span style="cursor:pointer" th:onclick="'javascript:showPost('+${post.id}+');'" th:text="${post.title}"></span>
+            </td>
+            <td th:text="${post.getMember().getName()}"></td>
+            <td th:text="${post.getModifiedAt().toLocalDate()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="container d-flex justify-content-end">
+        <button class="btn btn-primary" onclick="getPostForm()">글쓰기</button>
+    </div>
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<footer>
+    <div class="position-absolute bottom-0 start-0" th:replace="fragments/footer/footer :: footer"></div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script> <!--for ajax -->
+<script>
+    function getPostForm() {
+        let form = document.createElement('form');
+        form.setAttribute('method', 'get');
+        form.setAttribute('action', '/createPost')
+        document.body.append(form);
+        form.submit();
+    }
+</script>
+<script type="text/javascript" th:inline="javascript">
+    let showPost = function(id) {
+        let form = document.createElement('form');
+        form.setAttribute('method', 'get');
+        form.setAttribute('action', "/post/" + id);
+        document.body.append(form);
+        form.submit();
+    }
+</script>
+</body>
+</html>

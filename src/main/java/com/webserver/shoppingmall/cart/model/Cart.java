@@ -22,6 +22,8 @@ public class Cart extends BaseTimeEntity {
     @Column(name = "cart_id")
     private Long id;
 
+    private int totalPrice;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -33,5 +35,10 @@ public class Cart extends BaseTimeEntity {
     public Cart(Long id, Member member) {
         this.id = id;
         this.member = member;
+    }
+
+    public void addMember(Member member) {
+        this.member = member;
+        member.addCart(this);
     }
 }

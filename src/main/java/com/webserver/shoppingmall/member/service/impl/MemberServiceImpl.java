@@ -1,6 +1,7 @@
 package com.webserver.shoppingmall.member.service.impl;
 
 
+import com.webserver.shoppingmall.cart.repository.CartRepository;
 import com.webserver.shoppingmall.member.dto.MemberRegisterDto;
 import com.webserver.shoppingmall.member.exception.ResourceDuplicatedException;
 import com.webserver.shoppingmall.member.model.Member;

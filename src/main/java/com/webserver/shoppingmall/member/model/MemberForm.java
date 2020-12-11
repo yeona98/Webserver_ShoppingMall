@@ -1,5 +1,6 @@
 package com.webserver.shoppingmall.member.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,4 +14,14 @@ public class MemberForm {
     private String street;
     private String zipcode;
 
+    @Builder
+    public MemberForm(Long id, String email, String name, String password, String city, String street, String zipcode) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
+    }
 }

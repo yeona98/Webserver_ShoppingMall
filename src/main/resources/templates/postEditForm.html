@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>글 수정</title>
+</head>
+<body>
+<header th:replace="fragments/header/header :: header"></header>
+
+<form id="postForm" class="form-horizontal" th:object="${form}" th:action="@{/post/edit}" method="post" style="margin-bottom: 40px">
+    <input type="hidden" th:field="*{id}">
+    <div class="d-flex justify-content-center" style="margin-top: 30px; margin-bottom: 30px" >
+        <table style="padding-top: 50px; align-self: center; width: 700px; border: 0;" cellpadding="2">
+            <tr>
+                <td>작성자:</td>
+                <td><span sec:authentication="principal.fullName"></span></td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td><input id="title" name="content" type="text" th:field="*{title}" size="60" placeholder="제목"></td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                    <textarea name="content" id="content" cols="85" rows="15" th:field="*{content}" style="resize: none"></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <button type="submit" class="btn btn-success">수정하기</button>
+    </div>
+</form>
+<footer th:replace="fragments/footer/footer :: footer"></footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

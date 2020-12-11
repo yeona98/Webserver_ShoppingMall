@@ -38,7 +38,7 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Post> posts = new ArrayList<>();
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
@@ -63,5 +63,12 @@ public class Member extends BaseTimeEntity {
         this.city = city;
         this.street = street;
         this.zipcode = zipcode;
+    }
+
+    public void addPost(Post post) {
+        posts.add(post);
+    }
+    public void addCart(Cart cart) {
+        this.cart = cart;
     }
 }
