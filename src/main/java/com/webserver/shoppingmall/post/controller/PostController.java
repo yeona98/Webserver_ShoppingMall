@@ -1,9 +1,12 @@
 package com.webserver.shoppingmall.post.controller;
 
+import com.webserver.shoppingmall.post.model.Comment;
 import com.webserver.shoppingmall.post.model.Post;
 import com.webserver.shoppingmall.post.model.PostForm;
 import com.webserver.shoppingmall.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +19,16 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
+//    @GetMapping("/posts")
+//    public String getPosts(Model model) {
+//        List<Post> posts = postService.getAllPosts();
+//        model.addAttribute("posts", posts);
+//        return "postList";
+//    }
+
     @GetMapping("/posts")
-    public String getPosts(Model model) {
-        List<Post> posts = postService.getAllPosts();
+    public String getPosts(Pageable pageable, Model model) {
+        Page<Post> posts = postService.findAll(pageable);
         model.addAttribute("posts", posts);
         return "postList";
     }
@@ -38,7 +48,9 @@ public class PostController {
     @GetMapping("/post/{postId}")
     public String getPost(@PathVariable("postId") Long postId, Model model) {
         Post post = postService.getPostById(postId);
+        List<Comment> comments = post.getComments();
         model.addAttribute("post", post);
+        model.addAttribute("comments", comments);
         return "post";
     }
 
@@ -63,5 +75,11 @@ public class PostController {
     public String editPost(@ModelAttribute("form") PostForm form) {
         postService.edit(form);
         return "redirect:/posts";
+    }
+
+    @PostMapping("/post/{postId}/comment")
+    public String createComment(@PathVariable("postId") Long postId, Principal principal) {
+        postService.createComment(postId, principal);
+        return "redirect:/post/{postId}";
     }
 }

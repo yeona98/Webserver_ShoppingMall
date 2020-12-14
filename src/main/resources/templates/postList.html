@@ -33,17 +33,20 @@
         <button class="btn btn-primary" onclick="getPostForm()">글쓰기</button>
     </div>
     <nav>
-        <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-center"
+            th:with="start=${T(Math).floor(posts.number/10)*10 + 1},
+                    last=(${start + 9 < posts.totalPages ? start + 9 : posts.totalPages})">
+
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
+                <a id="prev" class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == posts.number + 1} ? 'active'">
+                <a class="page-link" th:text="${page}" th:href="@{/posts(page=${page})}"></a>
+            </li>
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
+                <a id="next" class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

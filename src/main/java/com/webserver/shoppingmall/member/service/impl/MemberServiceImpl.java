@@ -1,7 +1,6 @@
 package com.webserver.shoppingmall.member.service.impl;
 
 
-import com.webserver.shoppingmall.cart.repository.CartRepository;
 import com.webserver.shoppingmall.member.dto.MemberRegisterDto;
 import com.webserver.shoppingmall.member.exception.ResourceDuplicatedException;
 import com.webserver.shoppingmall.member.model.Member;
@@ -79,8 +78,13 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findMemberByEmail(email);
 
         List<GrantedAuthority> authorities = new ArrayList<>();
+
         if(member != null) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            if(member.getName().equals("운영자")) {
+                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            } else{
+                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            }
         } else {
             throw new UsernameNotFoundException("User not found");
         }

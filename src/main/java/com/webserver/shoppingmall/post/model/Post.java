@@ -5,9 +5,10 @@ import com.webserver.shoppingmall.shared.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -22,7 +23,10 @@ public class Post extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    Member member;
+    private Member member;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Post(String title, String content) {
@@ -38,4 +42,7 @@ public class Post extends BaseTimeEntity {
         this.title = title;
         this.content = content;
     }
+    /* TODO: 댓글 기능 추가
+     *
+     */
 }
