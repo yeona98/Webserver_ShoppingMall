@@ -12,8 +12,7 @@
 
 <section>
     <div class="d-flex justify-content-center" style="margin-top: 30px; margin-bottom: 30px">
-        <table style="padding-top: 50px; align-self: center; width: 700px; border: 0;" cellpadding="2"
-               th:object="${post}">
+        <table style="padding-top: 50px; align-self: center; width: 700px; border: 0;" cellpadding="2" th:object="${post}">
             <tr>
                 <td>작성자:</td>
                 <td><span th:text="${post.getMember().getName()}"></span></td>

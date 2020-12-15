@@ -59,6 +59,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
+    public void deleteMemberById(Long id) {
+        memberRepository.delete(memberRepository.findMemberById(id));
+    }
+
+    @Override
+    public Member findMemberById(Long id) {
+        return memberRepository.findMemberById(id);
+    }
+
+    @Override
     public List<Member> getAllMembers() {
         return memberRepository.findAll();
     }

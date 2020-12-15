@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -29,11 +31,6 @@ public class UiController {
     @GetMapping("/login")
     public String getLoginForm() {
         return "loginForm";
-    }
-
-    @GetMapping("/test")
-    public String test() {
-        return "authpage";
     }
 
     @GetMapping("/account")
@@ -64,5 +61,18 @@ public class UiController {
         memberService.deleteMember(principal.getName());
         SecurityContextHolder.clearContext();
         return "redirect:/";
+    }
+
+    @GetMapping("/admin")
+    public String test(Model model) {
+        List<Member> memberList = memberService.getAllMembers();
+        model.addAttribute("members", memberList);
+        return "admin";
+    }
+
+    @PostMapping("/admin/{memberId}/ban")
+    public String banMember(@PathVariable Long memberId) {
+       memberService.deleteMemberById(memberId);
+        return "redirect:/admin";
     }
 }

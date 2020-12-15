@@ -14,4 +14,6 @@ public interface MemberService extends UserDetailsService {
     Member getMemberByEmail(String email);
     void updateMember(MemberForm form);
     Long deleteMember(String email);
+    void deleteMemberById(Long id);
+    Member findMemberById(Long id);
 }

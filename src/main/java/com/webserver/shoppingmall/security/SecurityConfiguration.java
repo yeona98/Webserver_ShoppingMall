@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/templates/**", "/static/**", "/h2/**", "/messages/**");
+        web.ignoring().antMatchers("/templates/**", "/static/**", "/h2/**", "/messages/**", "/admin/**");
     }
 
     @Bean
@@ -42,7 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // Authorization
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/posts/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/**").permitAll()

@@ -33,9 +33,6 @@ public class Member extends BaseTimeEntity {
     private String street;
     private String zipcode;
 
-//    @Embedded
-//    private Address address;
-
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
