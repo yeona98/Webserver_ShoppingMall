@@ -19,13 +19,6 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
-//    @GetMapping("/posts")
-//    public String getPosts(Model model) {
-//        List<Post> posts = postService.getAllPosts();
-//        model.addAttribute("posts", posts);
-//        return "postList";
-//    }
-
     @GetMapping("/posts")
     public String getPosts(Pageable pageable, Model model) {
         Page<Post> posts = postService.findAll(pageable);
@@ -78,8 +71,8 @@ public class PostController {
     }
 
     @PostMapping("/post/{postId}/comment")
-    public String createComment(@PathVariable("postId") Long postId, Principal principal) {
-        postService.createComment(postId, principal);
+    public String createComment(@PathVariable("postId") Long postId, Principal principal, @RequestParam("content") String content) {
+        postService.createComment(postId, principal, content);
         return "redirect:/post/{postId}";
     }
 }

@@ -2,81 +2,87 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Q&A</title>
 </head>
 <body>
 <header>
     <div th:replace="fragments/header/header :: header"></div>
 </header>
-<div class="d-flex justify-content-center" style="margin-top: 30px; margin-bottom: 30px">
-    <table style="padding-top: 50px; align-self: center; width: 700px; border: 0;" cellpadding="2" th:object="${post}">
-        <tr>
-            <td>작성자:</td>
-            <td><span th:text="${post.getMember().getName()}"></span></td>
-        </tr>
-        <tr>
-            <td>제목</td>
-            <td><span th:text="${post.getTitle()}" style="border: black; background-size: 60px"></span></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <textarea name="content" id="content" cols="85" rows="15" th:text="${post.getContent()}" readonly
-                          style="resize: none"></textarea>
-            </td>
-        </tr>
-    </table>
-</div>
-<div th:if="${#authentication.isAuthenticated()}" class="container d-flex">
-    <button type="submit" onclick="document.getElementById('commentBtn').submit()" class="btn btn-primary">댓글</button>
-    <form id="commentBtn" th:action="@{/post/__${post.id}__/comment}" method="post"></form>
 
-    <div th:if="${comments.size() > 0}" class="d-flex justify-content-center">
-        <table id="commentTable" class="table table-sm">
-            <thead>
-            <tr class="thead-light thead-bordered">
-                <th>작성자</th>
-                <th>내용</th>
-                <th>작성일</th>
+<section>
+    <div class="d-flex justify-content-center" style="margin-top: 30px; margin-bottom: 30px">
+        <table style="padding-top: 50px; align-self: center; width: 700px; border: 0;" cellpadding="2"
+               th:object="${post}">
+            <tr>
+                <td>작성자:</td>
+                <td><span th:text="${post.getMember().getName()}"></span></td>
             </tr>
-            </thead>
-            <tbody>
-            <tr th:each="com : ${comments}">
-                <td th:text="${com.getMember().getName()}"></td>
+            <tr>
+                <td>제목:</td>
+                <td><span th:text="${post.getTitle()}" style="border: black; background-size: 60px"></span></td>
+            </tr>
+            <tr>
+                <td></td>
                 <td>
-                    <span th:text="${com.comment}"></span>
+                    <textarea name="content" id="content" cols="85" rows="15" th:text="${post.getContent()}" readonly style="resize: none"></textarea>
                 </td>
-                <td th:text="${com.getModifiedAt()}"></td>
             </tr>
-            </tbody>
         </table>
     </div>
+</section>
+
+<section>
+    <div th:if="${#authentication.getName()} == ${post.getMember().getEmail()}">
+        <div class="container d-flex justify-content-end">
+            <button type="submit" onclick="document.getElementById('editBtn').submit()" class="btn btn-success btn-sm" style="padding: 5px; margin-right: 10px">수정</button>
+            <button type="submit" onclick="document.getElementById('deleteBtn').submit()" class="btn btn-danger btn-sm" style="padding: 5px">삭제</button>
+
+            <form id="editBtn" th:action="@{/post/__${post.id}__/edit}" method="get"></form>
+            <form id="deleteBtn" th:action="@{/post/__${post.id}__/delete}" method="post"></form>
+        </div>
+    </div>
+</section>
+
+<hr>
+
+<div th:if="${#authentication.isAuthenticated()}" class="form-row">
+    <div class="col">
+        <form id="commentBtn" th:action="@{/post/__${post.id}__/comment}" method="post">
+            <input name="content" type="text" class="form-control" size="30" autocomplete="false">
+        </form>
+    </div>
+    <div class="col">
+        <button type="submit" onclick="document.getElementById('commentBtn').submit()" class="btn btn-primary">댓글</button>
+    </div>
 </div>
 
-<div th:if="${#authentication.getName()} == ${post.getMember().getEmail()}">
-    <div class="container d-flex justify-content-end">
-        <button type="submit" onclick="document.getElementById('editBtn').submit()" class="btn btn-success btn-sm"
-                style="padding: 5px; margin-right: 10px">수정
-        </button>
-        <button type="submit" onclick="document.getElementById('deleteBtn').submit()" class="btn btn-danger btn-sm"
-                style="padding: 5px">삭제
-        </button>
-        <form id="editBtn" th:action="@{/post/__${post.id}__/edit}" method="get"></form>
-        <form id="deleteBtn" th:action="@{/post/__${post.id}__/delete}" method="post"></form>
-    </div>
+<div th:if="${comments.size() >= 0}" class="d-flex justify-content-center">
+    <table id="commentTable" class="table table-sm">
+        <thead>
+        <tr class="thead-light thead-bordered">
+            <th>작성자</th>
+            <th>내용</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="com : ${comments}">
+            <td th:text="${com.getMember().getName()}"></td>
+            <td>
+                <span th:text="${com.comment}"></span>
+            </td>
+            <td th:text="${com.getModifiedAt()}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <footer th:replace="fragments/footer/footer :: footer"></footer>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

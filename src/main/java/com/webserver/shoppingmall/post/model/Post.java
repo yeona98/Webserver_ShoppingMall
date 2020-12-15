@@ -25,7 +25,7 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
@@ -42,7 +42,4 @@ public class Post extends BaseTimeEntity {
         this.title = title;
         this.content = content;
     }
-    /* TODO: 댓글 기능 추가
-     *
-     */
 }

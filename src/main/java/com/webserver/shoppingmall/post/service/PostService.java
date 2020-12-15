@@ -15,5 +15,5 @@ public interface PostService {
     void edit(PostForm postForm);
     Long delete(Long id);
     Page<Post> findAll(Pageable pageable);
-    Long createComment(Long postId, Principal principal);
+    Long createComment(Long postId, Principal principal, String content);
 }

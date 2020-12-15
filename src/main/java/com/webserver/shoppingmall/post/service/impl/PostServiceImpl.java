@@ -59,10 +59,14 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public Long createComment(Long postId, Principal principal) {
+    public Long createComment(Long postId, Principal principal, String content) {
         Post post = postRepository.getPostById(postId);
         Member member = memberRepository.findMemberByEmail(principal.getName());
-        Comment comment = Comment.builder().comment("테스트용").member(member).post(post).build();
+        Comment comment = Comment.builder()
+                .comment(content)
+                .member(member)
+                .post(post)
+                .build();
         commentRepository.save(comment);
         return comment.getId();
     }

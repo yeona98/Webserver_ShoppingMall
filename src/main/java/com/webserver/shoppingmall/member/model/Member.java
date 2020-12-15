@@ -45,7 +45,7 @@ public class Member extends BaseTimeEntity {
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private Cart cart;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
