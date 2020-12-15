@@ -75,4 +75,9 @@ public class UiController {
        memberService.deleteMemberById(memberId);
         return "redirect:/admin";
     }
+
+    @GetMapping("/my-cart")
+    public String getCart(){
+        return "cart";
+    }
 }

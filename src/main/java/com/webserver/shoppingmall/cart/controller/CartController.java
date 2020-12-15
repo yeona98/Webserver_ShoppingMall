@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CartController {
     private final CartService cartService;
-
-    @GetMapping("/my-cart")
-    public String getMyCart() {
-        return "myCart";
-    }
+//
+//    @GetMapping("/my-cart")
+//    public String getMyCart() {
+//        return "myCart";
+//    }
 }
