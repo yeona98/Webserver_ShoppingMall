@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @NoArgsConstructor
-public class ItemRegisterRequestForm {
+public class ItemRegisterRequestDto {
     private String name;
     private int price;
     private int stockQuantity;
@@ -15,7 +15,7 @@ public class ItemRegisterRequestForm {
     private String description;
     private MultipartFile picture;
 
-    public ItemRegisterRequestForm(String name, int price, int stockQuantity, Item.Category category, String description, MultipartFile picture) {
+    public ItemRegisterRequestDto(String name, int price, int stockQuantity, Item.Category category, String description, MultipartFile picture) {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
